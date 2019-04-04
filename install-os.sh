@@ -77,6 +77,9 @@ echo "[MATCH]
 [LINK]
 MACAddressPolicy=random" > /etc/systemd/network/00-default.link
 
+echo "127.0.0.1 localhost
+::1 localhost" > /etc/hosts
+
 # iptables
 echo "*filter
 
