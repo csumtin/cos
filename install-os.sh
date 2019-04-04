@@ -104,6 +104,8 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firefox-es
 
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git bash-completion
 
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gcc xxd
+
 # python stuff for cua
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends python-pip python-setuptools linux-headers-$(uname -r) python-dev
 
