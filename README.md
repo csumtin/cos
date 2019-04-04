@@ -12,3 +12,11 @@
 * `./prepare-disk.sh /dev/sda`, use correct disk name!
 * Assuming that the above worked, you will have a volume group named vg
 * `./install-os.sh /dev/sda`, use correct disk name!
+
+## Post Install
+* gnome-terminal won't start because of locales, ctrl-alt-f3 into tty3 and run as root `dpkg-reconfigure locales`
+* set control tab and control-shift-tab for gedit https://github.com/jefferyto/gedit-control-your-tabs and gnome-terminal sigh
+```
+gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Primary>Tab'
+gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
+```
