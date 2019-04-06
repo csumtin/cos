@@ -100,6 +100,9 @@ cp /etc/iptables/rules.v4 /etc/iptables/rules.v6
 # minimal gnome desktop environment
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal locales gedit gedit-plugins
 
+# fuse for android mtp
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fuse
+
 # sound
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
 
