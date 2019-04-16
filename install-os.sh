@@ -132,6 +132,7 @@ git clone https://github.com/csumtin/cua.git
 git clone https://github.com/csumtin/cas.git
 git clone https://github.com/csumtin/cpl.git
 git clone https://github.com/csumtin/cos.git
+git clone https://github.com/csumtin/ccs.git
 
 # commit backup somewhere else!
 rm -rf cas/.git
@@ -144,7 +145,5 @@ cp cua.service /etc/systemd/system/
 systemctl enable cua
 
 EOT
-
-mv bootstrap /mnt/home/c
 
 echo "Base OS installed, you should reboot"
