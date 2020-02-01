@@ -14,7 +14,7 @@ if [[ -f ${DISK_TO_USE} ]]; then
     exit 1
 fi
 
-wipefs -a ${DISK_TO_USE}
+wipefs -f -a ${DISK_TO_USE}
 
 echo "o
 w" | fdisk ${DISK_TO_USE}

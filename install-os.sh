@@ -49,9 +49,9 @@ echo "/dev/mapper/vg-boot  /boot  ext4  defaults  0 2
 /dev/mapper/decrypt-root  /  ext4  errors=remount-ro  0 1" > /etc/fstab
 
 # add non-free
-echo "deb http://deb.debian.org/debian/ stretch main non-free
-deb http://security.debian.org/ stretch/updates main non-free
-deb http://deb.debian.org/debian/ stretch-updates main non-free" > /etc/apt/sources.list
+echo "deb http://deb.debian.org/debian/ stable main non-free
+deb http://deb.debian.org/debian-security stable/updates main non-free
+deb http://deb.debian.org/debian/ stable-updates main non-free" > /etc/apt/sources.list
 
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y upgrade
