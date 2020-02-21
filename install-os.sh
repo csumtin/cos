@@ -36,6 +36,9 @@ mount --bind /dev /mnt/dev
 mount --bind /proc /mnt/proc
 mount --bind /sys /mnt/sys
 
+mkdir /mnt/run/udev
+mount --bind /run/udev /mnt/run/udev
+
 echo "Pick root password"
 chroot /mnt passwd root
 
