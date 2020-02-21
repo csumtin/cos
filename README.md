@@ -8,7 +8,10 @@
 * machine needs a disk of at least 60G and UEFI turned OFF
 * **WARNING** will completely wipe disk!!
 * **BACKUP** your data!
-* boot into the minimal live image, clone this repo
+* boot into the minimal live image
+* `wipefs -f -a /dev/sda` to make sure the disk is clean and then reboot
+* connect to internet `nmcli device wifi connect AP_NAME password AP_PASSWORD`
+* clone this repo `git clone https://github.com/csumtin/cos.git`
 * `./prepare-disk.sh /dev/sda`, use correct disk name!
 * Assuming that the above worked, you will have a volume group named vg
 * `./install-os.sh /dev/sda`, use correct disk name!
