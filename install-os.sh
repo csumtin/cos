@@ -80,23 +80,6 @@ MACAddressPolicy=random" > /etc/systemd/network/00-default.link
 echo "127.0.0.1 localhost
 ::1 localhost" > /etc/hosts
 
-# iptables
-echo "*filter
-
-# Base policy
-:INPUT DROP [0:0]
-:FORWARD DROP [0:0]
-:OUTPUT ACCEPT [0:0]
-
-# Don't attempt to firewall internal traffic on the loopback device
--A INPUT -i lo -j ACCEPT
-
-# Continue connections that are established or related to an established connection
--A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-
-COMMIT" > /etc/iptables/rules.v4
-cp /etc/iptables/rules.v4 /etc/iptables/rules.v6
-
 # minimal gnome desktop environment
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal locales gedit gedit-plugins
 
