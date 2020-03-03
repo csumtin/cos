@@ -72,7 +72,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstra
 echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 
 # networking and wifi
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firmware-iwlwifi ifupdown network-manager ca-certificates iptables iptables-persistent
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firmware-iwlwifi ifupdown network-manager ca-certificates nftables
 
 # random mac
 echo "[MATCH]
@@ -84,7 +84,7 @@ echo "127.0.0.1 localhost
 ::1 localhost" > /etc/hosts
 
 # minimal gnome desktop environment
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal locales gedit gedit-plugins
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal
 
 # fuse for android mtp
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fuse
@@ -92,11 +92,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fuse
 # sound
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
 
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firefox-esr
-
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git bash-completion
-
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gcc xxd
 
 # python stuff for cua
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends python-pip python-setuptools linux-headers-$(uname -r) python-dev
