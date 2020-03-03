@@ -91,7 +91,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
 
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git bash-completion
 
-# python stuff for cua
+# for cua
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends python-pip python-setuptools linux-headers-$(uname -r) python-dev gcc
 
 # for cas
@@ -105,23 +105,6 @@ sed -i 's/#GRUB_TERMINAL=console/GRUB_TERMINAL=console/' /etc/default/grub
 
 update-grub
 grub-install ${DISK_TO_USE}
-
-su - c
-git clone https://github.com/csumtin/cua.git
-git clone https://github.com/csumtin/cas.git
-git clone https://github.com/csumtin/cpl.git
-git clone https://github.com/csumtin/cos.git
-git clone https://github.com/csumtin/ccs.git
-
-# commit backup somewhere else!
-rm -rf cas/.git
-
-# back to root
-exit
-cd cua
-pip install evdev
-cp cua.service /etc/systemd/system/
-systemctl enable cua
 
 EOT
 
