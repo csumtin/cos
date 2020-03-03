@@ -22,6 +22,7 @@ p
 1
 
 
+y
 a
 w
 " | fdisk ${DISK_TO_USE}
