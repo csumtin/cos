@@ -15,7 +15,7 @@ if ! vgdisplay | grep -q 'vg' ; then
 fi
 
 lvcreate --size 1G --name boot vg
-lvcreate --size 50G --name root vg
+lvcreate -l 100%FREE --name root vg
 
 echo "Pick luks password"
 cryptsetup -q luksFormat --iter-time 2000 --cipher aes-xts-plain64 --key-size 512 --hash sha512 /dev/mapper/vg-root
