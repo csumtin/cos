@@ -9,21 +9,8 @@ su - c
 
 cd /home/c
 
-git clone https://github.com/csumtin/cua.git
-git clone https://github.com/csumtin/cos.git
-git clone https://github.com/csumtin/ccs.git
-git clone https://github.com/csumtin/cpl.git
-
-exit
-
-cd /home/c/cua
-
-pip install evdev
-cp cua.service /etc/systemd/system/
-systemctl enable cua
-
-
-echo "new-tab='<Primary>t'
+echo "[/org/gnome/terminal/legacy/keybindings]
+new-tab='<Primary>t'
 switch-to-tab-1='disabled'
 find-previous='<Primary><Shift>g'
 switch-to-tab-3='disabled'
@@ -52,9 +39,10 @@ next-tab='<Primary>Tab'
 switch-to-tab-6='disabled'
 zoom-in='disabled'
 switch-to-tab-8='disabled'
-switch-to-tab-2='disabled'" | dconf load /org/gnome/terminal/legacy/keybindings/
+switch-to-tab-2='disabled'" | dconf load /
 
-echo "switch-to-workspace-up=['<Super>Up', '<Control><Alt>Up']
+echo "[/org/gnome/desktop/wm/keybindings]
+switch-to-workspace-up=['<Super>Up', '<Control><Alt>Up']
 move-to-workspace-left=['']
 move-to-monitor-right=['']
 begin-move=['']
@@ -92,4 +80,17 @@ switch-panels=['']
 switch-input-source-backward=['']
 close=['<Primary>q']
 switch-to-workspace-last=['']
-move-to-monitor-up=['']" | dconf load /org/gnome/desktop/wm/keybindings/
+move-to-monitor-up=['']" | dconf load /
+
+git clone https://github.com/csumtin/cua.git
+git clone https://github.com/csumtin/cos.git
+git clone https://github.com/csumtin/ccs.git
+git clone https://github.com/csumtin/cpl.git
+
+exit
+
+cd /home/c/cua
+
+pip install evdev
+cp cua.service /etc/systemd/system/
+systemctl enable cua
