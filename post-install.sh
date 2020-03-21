@@ -90,7 +90,7 @@ cp ccs/firefox/*.sh projects/everyday/firefox
 
 echo "[Desktop Entry]
 Name=Firefox
-Exec=/home/c/projects/everyday/gedit/start.sh
+Exec=/home/c/projects/everyday/firefox/start.sh
 Type=Application" > /home/c/.local/share/applications/firefox.desktop
 
 update-desktop-database

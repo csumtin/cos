@@ -87,7 +87,7 @@ echo "127.0.0.1 localhost
 ::1 localhost" > /etc/hosts
 
 # minimal gnome desktop environment
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal gedit
 
 # sound
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
@@ -109,12 +109,15 @@ sed -i 's/#GRUB_TERMINAL=console/GRUB_TERMINAL=console/' /etc/default/grub
 update-grub
 grub-install ${DISK_TO_USE}
 
-su - c
+cd /home/c
 git clone https://github.com/csumtin/cua.git
 git clone https://github.com/csumtin/cos.git
 git clone https://github.com/csumtin/ccs.git
 git clone https://github.com/csumtin/cpl.git
-exit
+chown -R c:c cua
+chown -R c:c cos
+chown -R c:c ccs
+chown -R c:c cpl
 
 cd /home/c/cua
 
