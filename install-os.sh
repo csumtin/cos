@@ -9,6 +9,9 @@ fi
 
 DISK_TO_USE=$1
 
+yes | pvcreate ${DISK_TO_USE}1
+yes | vgcreate vg ${DISK_TO_USE}1
+
 if ! vgdisplay | grep -q 'vg' ; then
     echo "Error: expecting volume group vg"
     exit 1
