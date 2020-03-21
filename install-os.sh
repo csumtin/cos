@@ -116,6 +116,12 @@ git clone https://github.com/csumtin/ccs.git
 git clone https://github.com/csumtin/cpl.git
 exit
 
+cd /home/c/cua
+
+pip install evdev
+cp cua.service /etc/systemd/system/
+systemctl enable cua
+
 EOT
 
 echo "Base OS installed, you should reboot"

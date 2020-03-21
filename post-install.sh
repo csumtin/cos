@@ -1,14 +1,5 @@
 #!/bin/bash
 
-if [[ $EUID -ne 0  ]]; then
-  echo "This script must be run as root"
-  exit 1
-fi
-
-su - c
-
-cd /home/c
-
 echo "[/org/gnome/terminal/legacy/keybindings]
 new-tab='<Primary>t'
 switch-to-tab-1='disabled'
@@ -99,17 +90,3 @@ echo "[Desktop Entry]
 Name=Firefox
 Exec=/home/c/projects/everyday/gedit/start.sh
 Type=Application" > /home/c/.local/share/applications/firefox.desktop
-
-exit
-
-cd /home/c/cua
-
-pip install evdev
-cp cua.service /etc/systemd/system/
-systemctl enable cua
-
-cd /home/c/projects/everyday/gedit
-./init.sh
-
-cd /home/c/projects/everyday/firefox
-./init.sh
