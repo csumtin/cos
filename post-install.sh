@@ -87,6 +87,24 @@ git clone https://github.com/csumtin/cos.git
 git clone https://github.com/csumtin/ccs.git
 git clone https://github.com/csumtin/cpl.git
 
+mkdir -p projects/everyday
+
+mkdir projects/everyday/gedit
+cp ccs/gedit/*.sh projects/everyday/gedit
+
+echo "[Desktop Entry]
+Name=Gedit
+Exec=/home/c/projects/everyday/gedit/start.sh
+Type=Application" > /home/c/.local/share/applications/gedit.desktop
+
+mkdir projects/everyday/firefox
+cp ccs/firefox/*.sh projects/everyday/firefox
+
+echo "[Desktop Entry]
+Name=Firefox
+Exec=/home/c/projects/everyday/gedit/start.sh
+Type=Application" > /home/c/.local/share/applications/firefox.desktop
+
 exit
 
 cd /home/c/cua
@@ -94,3 +112,9 @@ cd /home/c/cua
 pip install evdev
 cp cua.service /etc/systemd/system/
 systemctl enable cua
+
+cd /home/c/projects/everyday/gedit
+./init.sh
+
+cd /home/c/projects/everyday/firefox
+./init.sh
