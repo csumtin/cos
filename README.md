@@ -13,6 +13,4 @@
 * prepare disk with `fdisk /dev/sda` and select option o,w then n,p,1,a,w
 * connect to internet `nmcli device wifi connect AP_NAME password AP_PASSWORD`
 * clone this repo `git clone https://github.com/csumtin/cos.git`
-* `./prepare-disk.sh /dev/sda`, use correct disk name!
-* Assuming that the above worked, you will have a volume group named vg
 * `./install-os.sh /dev/sda`, use correct disk name!
