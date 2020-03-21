@@ -109,6 +109,13 @@ sed -i 's/#GRUB_TERMINAL=console/GRUB_TERMINAL=console/' /etc/default/grub
 update-grub
 grub-install ${DISK_TO_USE}
 
+su - c
+git clone https://github.com/csumtin/cua.git
+git clone https://github.com/csumtin/cos.git
+git clone https://github.com/csumtin/ccs.git
+git clone https://github.com/csumtin/cpl.git
+exit
+
 EOT
 
 echo "Base OS installed, you should reboot"

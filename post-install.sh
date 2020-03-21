@@ -82,11 +82,6 @@ close=['<Primary>q']
 switch-to-workspace-last=['']
 move-to-monitor-up=['']" | dconf load /
 
-git clone https://github.com/csumtin/cua.git
-git clone https://github.com/csumtin/cos.git
-git clone https://github.com/csumtin/ccs.git
-git clone https://github.com/csumtin/cpl.git
-
 mkdir -p projects/everyday
 
 mkdir projects/everyday/gedit
