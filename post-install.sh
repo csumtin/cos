@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo "[/org/gnome/terminal/legacy/keybindings]
+cd /home/c
+
+echo "[org/gnome/terminal/legacy/keybindings]
 new-tab='<Primary>t'
 switch-to-tab-1='disabled'
 find-previous='<Primary><Shift>g'
@@ -32,7 +34,7 @@ zoom-in='disabled'
 switch-to-tab-8='disabled'
 switch-to-tab-2='disabled'" | dconf load /
 
-echo "[/org/gnome/desktop/wm/keybindings]
+echo "[org/gnome/desktop/wm/keybindings]
 switch-to-workspace-up=['<Super>Up', '<Control><Alt>Up']
 move-to-workspace-left=['']
 move-to-monitor-right=['']
@@ -90,3 +92,5 @@ echo "[Desktop Entry]
 Name=Firefox
 Exec=/home/c/projects/everyday/gedit/start.sh
 Type=Application" > /home/c/.local/share/applications/firefox.desktop
+
+update-desktop-database
