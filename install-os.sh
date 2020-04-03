@@ -66,7 +66,7 @@ DEBIAN_FRONTEND=noninteractive apt -y upgrade
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 busybox systemd-sysv grub2 os-prober lvm2 cryptsetup
 
 # command line text editing
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends less nano xxd
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends less nano
 
 # run software in containers using deboostrap and systemd containers
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstrap systemd-container sudo
@@ -75,7 +75,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstra
 echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 
 # networking and wifi
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firmware-iwlwifi ifupdown network-manager ca-certificates nftables
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firmware-iwlwifi ifupdown network-manager ca-certificates
 
 # random mac
 echo "[MATCH]
@@ -87,7 +87,7 @@ echo "127.0.0.1 localhost
 ::1 localhost" > /etc/hosts
 
 # minimal gnome desktop environment
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal gedit
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal
 
 # sound
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
@@ -122,8 +122,8 @@ chown -R c:c cpl
 cd /home/c/cua
 
 pip install evdev
-cp cua.service /etc/systemd/system/
-systemctl enable cua
+cp cua0.service /etc/systemd/system/
+systemctl enable cua0
 
 EOT
 
