@@ -75,7 +75,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstra
 echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 
 # networking and wifi
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firmware-iwlwifi ifupdown network-manager ca-certificates
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firmware-iwlwifi ifupdown network-manager ca-certificates nftables
 
 # random mac
 echo "[MATCH]
@@ -120,10 +120,42 @@ chown -R c:c ccs
 chown -R c:c cpl
 
 cd /home/c/cua
-
 pip install evdev
-cp cua0.service /etc/systemd/system/
-systemctl enable cua0
+
+echo "#!/usr/sbin/nft -f
+flush ruleset
+
+define user_uid = 1000
+define apt_uid = 100
+
+table inet filter {
+        chain input {
+                # drop by default
+                type filter hook input priority 0; policy drop;
+                # accept localhost
+                iif lo accept
+                # drop connections to localhost not coming from localhost
+                iif != lo ip daddr 127.0.0.1/8 drop
+                # drop connections to localhost not coming from localhost
+                iif != lo ip6 daddr ::1/128 drop
+                # only accept traffic originating from us
+                ct state {established, related} accept
+        }
+        chain forward {
+                # drop by default
+                type filter hook forward priority 0; policy drop;
+        }
+        chain output {
+                # drop by default
+                type filter hook output priority 0; policy drop;
+                # accept localhost
+                oif lo accept
+                # allow outbound http and https
+                skuid ${$user_uid, $apt_uid} tcp dport {80, 443} ct state new,established,related accept
+                # allow outbound dns
+                skuid {$user_uid, $apt_uid} udp dport 53 ct state new,established,related accept
+        }
+}" > /etc/nftables.conf
 
 EOT
 
