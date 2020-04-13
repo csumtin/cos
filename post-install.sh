@@ -75,6 +75,15 @@ close=['<Primary>q']
 switch-to-workspace-last=['']
 move-to-monitor-up=['']" | dconf load /
 
+echo "[org/gnome/settings-daemon/plugins/power]
+power-button-action='interactive'
+idle-dim=false
+sleep-inactive-battery-type='nothing'
+sleep-inactive-ac-type='nothing'" | dconf load /
+
+echo "[org/gnome/desktop/peripherals/mouse]
+speed=0.47794117647058831" | dconf load /
+
 mkdir -p projects/everyday
 
 mkdir projects/everyday/gedit
