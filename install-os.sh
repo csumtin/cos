@@ -127,9 +127,6 @@ systemctl enable cua0
 echo '#!/usr/sbin/nft -f
 flush ruleset
 
-define user_uid = 1000
-define apt_uid = 100
-
 table inet filter {
         chain input {
                 # drop by default
@@ -153,11 +150,13 @@ table inet filter {
                 # accept localhost
                 oif lo accept
                 # allow outbound http and https
-                skuid {$user_uid, $apt_uid} tcp dport {80, 443} ct state new,established,related accept
+                tcp dport {80, 443} ct state new,established,related accept
                 # allow outbound dns
-                skuid {$user_uid, $apt_uid} udp dport 53 ct state new,established,related accept
+                udp dport 53 ct state new,established,related accept
         }
 }' > /etc/nftables.conf
+
+systemctl enable nftables
 
 EOT
 
