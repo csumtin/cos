@@ -87,7 +87,7 @@ speed=0.47794117647058831" | dconf load /
 mkdir -p projects/everyday
 
 mkdir projects/everyday/gedit
-cp ccs/gedit/*.sh projects/everyday/gedit
+cp ccs/everyday/gedit/*.sh projects/everyday/gedit
 
 echo "[Desktop Entry]
 Name=Gedit
@@ -95,7 +95,7 @@ Exec=/home/c/projects/everyday/gedit/start.sh
 Type=Application" > /home/c/.local/share/applications/gedit.desktop
 
 mkdir projects/everyday/firefox
-cp ccs/firefox/*.sh projects/everyday/firefox
+cp ccs/everyday/firefox/*.sh projects/everyday/firefox
 
 echo "[Desktop Entry]
 Name=Firefox

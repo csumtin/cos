@@ -10,7 +10,7 @@
 * **BACKUP** your data!
 * boot into the minimal live image
 * `wipefs -f -a /dev/sda` to make sure the disk is clean and then reboot
-* prepare disk with `fdisk /dev/sda` and select option o,w then n,p,1,a,w
 * connect to internet `nmcli device wifi connect AP_NAME password AP_PASSWORD`
 * clone this repo `git clone https://github.com/csumtin/cos.git`
+* prepare disk with `fdisk /dev/sda` and select option o,w then n,p,1,a,w
 * `./install-os.sh /dev/sda`, use correct disk name!

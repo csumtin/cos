@@ -121,8 +121,10 @@ chown -R c:c cpl
 
 cd /home/c/cua
 pip install evdev
+cp cua0.service /etc/systemd/system/
+systemctl enable cua0
 
-echo "#!/usr/sbin/nft -f
+echo '#!/usr/sbin/nft -f
 flush ruleset
 
 define user_uid = 1000
@@ -151,11 +153,11 @@ table inet filter {
                 # accept localhost
                 oif lo accept
                 # allow outbound http and https
-                skuid ${$user_uid, $apt_uid} tcp dport {80, 443} ct state new,established,related accept
+                skuid {$user_uid, $apt_uid} tcp dport {80, 443} ct state new,established,related accept
                 # allow outbound dns
                 skuid {$user_uid, $apt_uid} udp dport 53 ct state new,established,related accept
         }
-}" > /etc/nftables.conf
+}' > /etc/nftables.conf
 
 EOT
 
