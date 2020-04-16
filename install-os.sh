@@ -149,8 +149,8 @@ table inet filter {
                 type filter hook output priority 0; policy drop;
                 # accept localhost
                 oif lo accept
-                # allow outbound http and https
-                tcp dport {80, 443} ct state new,established,related accept
+                # allow outbound http, https and ssh
+                tcp dport {80, 443, 22} ct state new,established,related accept
                 # allow outbound dns
                 udp dport 53 ct state new,established,related accept
         }
