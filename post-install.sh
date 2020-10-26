@@ -103,3 +103,17 @@ Exec=/home/c/projects/everyday/firefox/start.sh
 Type=Application" > /home/c/.local/share/applications/firefox.desktop
 
 update-desktop-database
+
+wget https://github.com/F-i-f/soft-brightness/releases/download/v21/soft-brightness@fifi.org.v21.shell-extension.zip
+mkdir -p .local/share/gnome-shell/extensions/soft-brightness@fifi.org
+mv soft-brightness@fifi.org.v21.shell-extension.zip .local/share/gnome-shell/extensions/soft-brightness@fifi.org
+cd .local/share/gnome-shell/extensions/soft-brightness@fifi.org
+unzip soft-brightness@fifi.org.v21.shell-extension.zip
+
+echo "[org/gnome/shell]
+enabled-extensions=['soft-brightness@fifi.org']" | dconf load /
+
+echo "[org/gnome/shell/extensions/soft-brightness]
+use-backlight=true
+builtin-monitor='Built-in display'
+current-brightness=0.66419605217357669" | dconf load /
