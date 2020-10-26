@@ -114,6 +114,7 @@ echo "[org/gnome/shell]
 enabled-extensions=['soft-brightness@fifi.org']" | dconf load /
 
 echo "[org/gnome/shell/extensions/soft-brightness]
+clone-mouse=false
 use-backlight=true
 builtin-monitor='Built-in display'
 current-brightness=0.66419605217357669" | dconf load /
