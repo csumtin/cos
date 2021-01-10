@@ -92,6 +92,9 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-sess
 # sound
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
 
+# bluetooth
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-bluetooth
+
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git bash-completion
 
 # for cua
