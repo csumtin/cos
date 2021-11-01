@@ -8,7 +8,7 @@ if [[ $EUID -ne 0  ]]; then
 fi
 
 # install requirements on debian host
-apt update
+#apt update
 apt -y install --no-install-recommends grub2 squashfs-tools xorriso debootstrap
 
 mkdir live-bootstrap
@@ -21,7 +21,7 @@ chroot live-bootstrap <<"EOT"
 
 # add non-free
 echo "deb http://deb.debian.org/debian/ stable main non-free
-deb http://deb.debian.org/debian-security stable/updates main non-free
+deb http://deb.debian.org/debian-security stable-security main non-free
 deb http://deb.debian.org/debian/ stable-updates main non-free" > /etc/apt/sources.list
 
 apt update
@@ -31,7 +31,7 @@ DEBIAN_FRONTEND=noninteractive apt -y upgrade
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 systemd-sysv live-boot ifupdown
 
 # optional installs
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends grub2 lvm2 cryptsetup debootstrap less nano network-manager firmware-iwlwifi ca-certificates git
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fdisk grub2 lvm2 cryptsetup debootstrap vim network-manager firmware-iwlwifi ca-certificates git
 apt clean
 
 # random mac
