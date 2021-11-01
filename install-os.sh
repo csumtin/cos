@@ -56,17 +56,17 @@ echo "/dev/mapper/vg-boot  /boot  ext4  defaults  0 2
 
 # add non-free
 echo "deb http://deb.debian.org/debian/ stable main non-free
-deb http://deb.debian.org/debian-security stable/updates main non-free
+deb http://deb.debian.org/debian-security stable-security main non-free
 deb http://deb.debian.org/debian/ stable-updates main non-free" > /etc/apt/sources.list
 
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y upgrade
 
 # install kernel, systemd, grub, lvm and luks
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 busybox systemd-sysv grub2 os-prober lvm2 cryptsetup
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 busybox systemd-sysv grub2 os-prober lvm2 cryptsetup cryptsetup-initramfs
 
 # command line text editing
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends less nano
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends vim
 
 # run software in containers using deboostrap and systemd containers
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstrap systemd-container sudo
@@ -88,44 +88,6 @@ echo "127.0.0.1 localhost
 
 # minimal gnome desktop environment
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal
-
-# sound
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
-
-# bluetooth
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-bluetooth
-
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git bash-completion
-
-# for cua
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends python-pip python-setuptools linux-headers-$(uname -r) python-dev gcc
-
-# for cas
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends steghide gnupg pwgen xclip
-
-apt clean
-
-# grub
-sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
-sed -i 's/#GRUB_TERMINAL=console/GRUB_TERMINAL=console/' /etc/default/grub
-
-update-grub
-grub-install ${DISK_TO_USE}
-
-cd /home/c
-git clone https://github.com/csumtin/cua.git
-git clone https://github.com/csumtin/cos.git
-git clone https://github.com/csumtin/ccs.git
-git clone https://github.com/csumtin/cpl.git
-chown -R c:c cua
-chown -R c:c cos
-chown -R c:c ccs
-chown -R c:c cpl
-
-cd /home/c/cua
-pip install evdev
-cp cua0.service /etc/systemd/system/
-systemctl enable cua0
 
 echo '#!/usr/sbin/nft -f
 flush ruleset
@@ -160,6 +122,10 @@ table inet filter {
 }' > /etc/nftables.conf
 
 systemctl enable nftables
+
+cd /home/c
+git clone https://github.com/csumtin/cos.git
+chown -R c:c cos
 
 EOT
 
