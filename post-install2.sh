@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Base install for an amd64 debian system
+if [[ $EUID -e 0  ]]; then
+  echo "This script must NOT be run as root"
+  exit 1
+fi
+
 cd /home/c
 
 echo "[org/gnome/terminal/legacy/keybindings]
