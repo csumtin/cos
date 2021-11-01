@@ -68,6 +68,9 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-imag
 # command line text editing
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends vim
 
+# git
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git bash-completion
+
 # run software in containers using deboostrap and systemd containers
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstrap systemd-container sudo
 
@@ -88,6 +91,15 @@ echo "127.0.0.1 localhost
 
 # minimal gnome desktop environment
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal
+
+apt clean
+
+# grub
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
+sed -i 's/#GRUB_TERMINAL=console/GRUB_TERMINAL=console/' /etc/default/grub
+
+update-grub
+grub-install ${DISK_TO_USE}
 
 echo '#!/usr/sbin/nft -f
 flush ruleset
