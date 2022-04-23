@@ -1,4 +1,4 @@
-#!/bin/bash
+fk#!/bin/bash
 
 # Base install for an amd64 debian system
 if [[ $EUID -e 0  ]]; then
@@ -51,11 +51,8 @@ move-to-monitor-left=['']
 panel-run-dialog=['']
 toggle-maximized=['']
 cycle-windows=['']
-unmaximize=['', '<Alt>F5']
-maximize=['<Super>m']
 toggle-fullscreen=['<Super>f']
 begin-resize=['']
-panel-main-menu=['', '<Alt>F1']
 cycle-windows-backward=@as []
 cycle-group-backward=@as []
 cycle-panels-backward=@as []
@@ -103,7 +100,7 @@ echo "[org/gnome/shell/extensions/soft-brightness]
 clone-mouse=false
 use-backlight=true
 builtin-monitor='Built-in display'
-current-brightness=0.66419605217357669" | dconf load /
+current-brightness=0.7" | dconf load /
 
 echo "[Desktop Entry]
 Name=Gedit
