@@ -69,7 +69,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-imag
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends vim
 
 # git
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git bash-completion
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git
 
 # run software in containers using deboostrap and systemd containers
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstrap systemd-container sudo
@@ -135,9 +135,23 @@ table inet filter {
 
 systemctl enable nftables
 
-cd /home/c
+# sound
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
+
+# bluetooth
+# DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-bluetooth pulseaudio-module-bluetooth
+
+# for cas
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends steghide gnupg pwgen xclip
+
+su - c
+
+mkdir /home/c/download
+mkdir /home/c/proj
+
+cd proj
+git clone https://github.com/csumtin/cap.git
 git clone https://github.com/csumtin/cos.git
-chown -R c:c cos
 
 EOT
 

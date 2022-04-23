@@ -90,26 +90,6 @@ sleep-inactive-ac-type='nothing'" | dconf load /
 echo "[org/gnome/desktop/peripherals/mouse]
 speed=0.47794117647058831" | dconf load /
 
-mkdir -p projects/everyday
-
-mkdir projects/everyday/gedit
-cp ccs/everyday/gedit/*.sh projects/everyday/gedit
-
-echo "[Desktop Entry]
-Name=Gedit
-Exec=/home/c/projects/everyday/gedit/start.sh
-Type=Application" > /home/c/.local/share/applications/gedit.desktop
-
-mkdir projects/everyday/firefox
-cp ccs/everyday/firefox/*.sh projects/everyday/firefox
-
-echo "[Desktop Entry]
-Name=Firefox
-Exec=/home/c/projects/everyday/firefox/start.sh
-Type=Application" > /home/c/.local/share/applications/firefox.desktop
-
-update-desktop-database
-
 wget https://github.com/F-i-f/soft-brightness/releases/download/v21/soft-brightness@fifi.org.v21.shell-extension.zip
 mkdir -p .local/share/gnome-shell/extensions/soft-brightness@fifi.org
 mv soft-brightness@fifi.org.v21.shell-extension.zip .local/share/gnome-shell/extensions/soft-brightness@fifi.org
@@ -124,3 +104,15 @@ clone-mouse=false
 use-backlight=true
 builtin-monitor='Built-in display'
 current-brightness=0.66419605217357669" | dconf load /
+
+echo "[Desktop Entry]
+Name=Gedit
+Exec=/home/c/proj/cap/gedit/start.sh
+Type=Application" > /home/c/.local/share/applications/gedit.desktop
+
+echo "[Desktop Entry]
+Name=Firefox
+Exec=/home/c/proj/cap/firefox/start.sh
+Type=Application" > /home/c/.local/share/applications/firefox.desktop
+
+update-desktop-database
