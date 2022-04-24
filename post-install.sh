@@ -1,12 +1,18 @@
-fk#!/bin/bash
+#!/bin/bash
+set -eux
 
 # Base install for an amd64 debian system
-if [[ $EUID -e 0  ]]; then
-  echo "This script must NOT be run as root"
+if [[ $EUID -ne 0  ]]; then
+  echo "This script must be run as root"
   exit 1
 fi
 
-cd /home/c
+/home/c/proj/cap/cua/init.sh
+/home/c/proj/cap/gedit/init.sh
+/home/c/proj/cap/firefox/init.sh
+/home/c/proj/cap/template/init.sh
+
+su - c
 
 echo "[org/gnome/terminal/legacy/keybindings]
 new-tab='<Primary>t'
@@ -41,42 +47,47 @@ switch-to-tab-8='disabled'
 switch-to-tab-2='disabled'" | dconf load /
 
 echo "[org/gnome/desktop/wm/keybindings]
-switch-to-workspace-up=['<Super>Up', '<Control><Alt>Up']
-move-to-workspace-left=['']
-move-to-monitor-right=['']
-begin-move=['']
-switch-to-workspace-left=['']
-switch-to-workspace-1=['']
-move-to-monitor-left=['']
-panel-run-dialog=['']
-toggle-maximized=['']
-cycle-windows=['']
-toggle-fullscreen=['<Super>f']
-begin-resize=['']
-cycle-windows-backward=@as []
-cycle-group-backward=@as []
-cycle-panels-backward=@as []
-switch-input-source=@as []
-switch-to-workspace-right=['']
-move-to-workspace-down=['<Shift><Super>Down', '<Control><Shift><Alt>Down']
-move-to-workspace-1=['']
-cycle-group=['']
-move-to-workspace-last=['']
-switch-applications=['', '<Alt>Tab']
-minimize=['']
-switch-to-workspace-down=['<Super>Down', '<Control><Alt>Down']
-switch-panels-backward=@as []
-switch-applications-backward=@as []
-move-to-monitor-down=['']
 activate-window-menu=['']
-cycle-panels=['']
-move-to-workspace-up=['<Shift><Super>Up', '<Control><Shift><Alt>Up']
-move-to-workspace-right=['']
-switch-panels=['']
-switch-input-source-backward=['']
+begin-move=['']
+begin-resize=['']
 close=['<Primary>q']
+cycle-group=['']
+cycle-group-backward=@as []
+cycle-panels=['']
+cycle-panels-backward=@as []
+cycle-windows=['']
+cycle-windows-backward=@as []
+maximize=@as []
+minimize=['']
+move-to-monitor-down=['']
+move-to-monitor-left=['']
+move-to-monitor-right=['']
+move-to-monitor-up=['']
+move-to-workspace-1=['']
+move-to-workspace-down=['<Shift><Super>Down', '<Control><Shift><Alt>Down']
+move-to-workspace-last=['']
+move-to-workspace-left=['']
+move-to-workspace-right=['']
+move-to-workspace-up=['<Shift><Super>Up', '<Control><Shift><Alt>Up']
+panel-main-menu=@as []
+panel-run-dialog=['']
+switch-applications=['', '<Alt>Tab']
+switch-applications-backward=@as []
+switch-group=@as []
+switch-group-backward=@as []
+switch-input-source=@as []
+switch-input-source-backward=['']
+switch-panels=['']
+switch-panels-backward=@as []
+switch-to-workspace-1=['']
+switch-to-workspace-down=['<Super>Down', '<Control><Alt>Down']
 switch-to-workspace-last=['']
-move-to-monitor-up=['']" | dconf load /
+switch-to-workspace-left=['']
+switch-to-workspace-right=['']
+switch-to-workspace-up=['<Super>Up', '<Control><Alt>Up']
+toggle-fullscreen=['<Super>f']
+toggle-maximized=['']
+unmaximize=@as [] | dconf load /
 
 echo "[org/gnome/settings-daemon/plugins/power]
 power-button-action='interactive'
@@ -86,21 +97,6 @@ sleep-inactive-ac-type='nothing'" | dconf load /
 
 echo "[org/gnome/desktop/peripherals/mouse]
 speed=0.47794117647058831" | dconf load /
-
-wget https://github.com/F-i-f/soft-brightness/releases/download/v21/soft-brightness@fifi.org.v21.shell-extension.zip
-mkdir -p .local/share/gnome-shell/extensions/soft-brightness@fifi.org
-mv soft-brightness@fifi.org.v21.shell-extension.zip .local/share/gnome-shell/extensions/soft-brightness@fifi.org
-cd .local/share/gnome-shell/extensions/soft-brightness@fifi.org
-unzip soft-brightness@fifi.org.v21.shell-extension.zip
-
-echo "[org/gnome/shell]
-enabled-extensions=['soft-brightness@fifi.org']" | dconf load /
-
-echo "[org/gnome/shell/extensions/soft-brightness]
-clone-mouse=false
-use-backlight=true
-builtin-monitor='Built-in display'
-current-brightness=0.7" | dconf load /
 
 echo "[Desktop Entry]
 Name=Gedit
