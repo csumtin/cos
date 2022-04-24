@@ -96,7 +96,7 @@ sleep-inactive-battery-type='nothing'
 sleep-inactive-ac-type='nothing'" | dconf load /
 
 echo "[org/gnome/desktop/peripherals/mouse]
-speed=0.47794117647058831" | dconf load /
+speed=0.48" | dconf load /
 
 echo "[Desktop Entry]
 Name=Gedit
