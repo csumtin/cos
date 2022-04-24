@@ -14,3 +14,8 @@
 * clone this repo `git clone https://github.com/csumtin/cos.git`
 * prepare disk with `fdisk /dev/sda` and select option o,w then n,p,1,a,w
 * `./install-os.sh /dev/sda`, use correct disk name!
+
+## Post Install
+* reboot and run `post-install-as-c.sh` and `post-install-as-root.sh`
+* for each keyboard `cp cua.service /etc/systemd/system/` and `systemctl enable cua`
+* `git clone cas`
