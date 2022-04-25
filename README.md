@@ -16,6 +16,6 @@
 * `./install-os.sh /dev/sda`, use correct disk name!
 
 ## Post Install
-* reboot and run `post-install.sh`
+* reboot and run `post-install-as-root.sh` and `post-install-as-c.sh`
 * for each keyboard `cp cua.service /etc/systemd/system/` and `systemctl enable cua`
 * `git clone cas`
