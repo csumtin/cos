@@ -101,4 +101,9 @@ Name=Firefox
 Exec=/home/c/proj/cap/firefox/start.sh
 Type=Application" > /home/c/.local/share/applications/firefox.desktop
 
+echo "[Desktop Entry]
+Name=Google-Chrome
+Exec=/home/c/proj/cap/google-chrome/start.sh
+Type=Application" > /home/c/.local/share/applications/google-chrome.desktop
+
 update-desktop-database
