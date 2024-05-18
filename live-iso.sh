@@ -20,9 +20,9 @@ debootstrap --arch=amd64 --variant=minbase stable live-bootstrap
 chroot live-bootstrap <<"EOT"
 
 # add non-free
-echo "deb http://deb.debian.org/debian/ stable main non-free
-deb http://deb.debian.org/debian-security stable-security main non-free
-deb http://deb.debian.org/debian/ stable-updates main non-free" > /etc/apt/sources.list
+echo "deb http://deb.debian.org/debian/ stable main non-free non-free-firmware
+deb http://deb.debian.org/debian-security stable-security main non-free non-free-firmware
+deb http://deb.debian.org/debian/ stable-updates main non-free non-free-firmware" > /etc/apt/sources.list
 
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y upgrade
