@@ -78,7 +78,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstra
 echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 
 # networking and wifi
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends firmware-iwlwifi ifupdown network-manager ca-certificates nftables
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends ifupdown network-manager firmware-iwlwifi wpasupplicant ca-certificates nftables
 
 # random mac
 echo "[MATCH]

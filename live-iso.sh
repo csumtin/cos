@@ -31,7 +31,7 @@ DEBIAN_FRONTEND=noninteractive apt -y upgrade
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 systemd-sysv live-boot ifupdown
 
 # optional installs
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fdisk grub2 lvm2 cryptsetup debootstrap vim network-manager firmware-iwlwifi ca-certificates git
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fdisk grub2 lvm2 cryptsetup debootstrap vim network-manager firmware-iwlwifi wpasupplicant ca-certificates git
 apt clean
 
 # random mac
