@@ -55,9 +55,9 @@ echo "/dev/mapper/vg-boot  /boot  ext4  defaults  0 2
 /dev/mapper/decrypt-root  /  ext4  errors=remount-ro  0 1" > /etc/fstab
 
 # add non-free
-echo "deb http://deb.debian.org/debian/ stable main non-free
-deb http://deb.debian.org/debian-security stable-security main non-free
-deb http://deb.debian.org/debian/ stable-updates main non-free" > /etc/apt/sources.list
+echo "deb http://deb.debian.org/debian/ stable main non-free non-free-firmware
+deb http://deb.debian.org/debian-security stable-security main non-free non-free-firmware
+deb http://deb.debian.org/debian/ stable-updates main non-free non-free-firmware" > /etc/apt/sources.list
 
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y upgrade
@@ -79,6 +79,9 @@ echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 
 # networking and wifi
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends ifupdown network-manager firmware-iwlwifi wpasupplicant ca-certificates nftables
+
+# bluetooth
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends bluetooth
 
 # random mac
 echo "[MATCH]

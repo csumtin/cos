@@ -6,90 +6,97 @@ if [[ $EUID -eq 0  ]]; then
   exit 1
 fi
 
-
 echo "[org/gnome/terminal/legacy/keybindings]
-new-tab='<Primary>t'
-switch-to-tab-1='disabled'
-find-previous='<Primary><Shift>g'
-switch-to-tab-3='disabled'
-copy='<Primary>c'
-switch-to-tab-5='disabled'
-switch-to-tab-4='disabled'
-prev-tab='<Primary><Shift>Tab'
-new-window='<Primary>n'
 close-tab='<Primary>w'
-find='<Primary>f'
-full-screen='disabled'
 close-window='disabled'
-move-tab-left='disabled'
-switch-to-tab-9='disabled'
-find-next='<Primary>g'
-move-tab-right='disabled'
-switch-to-tab-10='disabled'
-help='disabled'
-zoom-normal='disabled'
-paste='<Primary>v'
-switch-to-tab-7='disabled'
+copy='<Primary>c'
+find='<Primary>f'
 find-clear='disabled'
-select-all='<Primary>a'
-zoom-out='disabled'
+find-next='disabled'
+find-previous='disabled'
+full-screen='disabled'
+help='disabled'
+move-tab-left='disabled'
+move-tab-right='disabled'
+new-tab='<Primary>t'
+new-window='<Primary>n'
 next-tab='<Primary>Tab'
+paste='<Primary>v'
+prev-tab='<Primary><Shift>Tab'
+select-all='<Primary>a'
+switch-to-tab-1='disabled'
+switch-to-tab-10='disabled'
+switch-to-tab-2='disabled'
+switch-to-tab-3='disabled'
+switch-to-tab-4='disabled'
+switch-to-tab-5='disabled'
 switch-to-tab-6='disabled'
-zoom-in='disabled'
+switch-to-tab-7='disabled'
 switch-to-tab-8='disabled'
-switch-to-tab-2='disabled'" | dconf load /
+switch-to-tab-9='disabled'
+zoom-in='disabled'
+zoom-normal='disabled'
+zoom-out='disabled'" | dconf load /
 
 echo "[org/gnome/desktop/wm/keybindings]
-activate-window-menu=['']
-begin-move=['']
-begin-resize=['']
+begin-move=@as []
+begin-resize=@as []
 close=['<Primary>q']
-cycle-group=['']
+cycle-group=@as []
 cycle-group-backward=@as []
-cycle-panels=['']
+cycle-panels=@as []
 cycle-panels-backward=@as []
-cycle-windows=['']
+cycle-windows=@as []
 cycle-windows-backward=@as []
 maximize=@as []
-minimize=['']
-move-to-monitor-down=['']
-move-to-monitor-left=['']
-move-to-monitor-right=['']
-move-to-monitor-up=['']
-move-to-workspace-1=['']
-move-to-workspace-down=['<Shift><Super>Down', '<Control><Shift><Alt>Down']
-move-to-workspace-last=['']
-move-to-workspace-left=['']
-move-to-workspace-right=['']
-move-to-workspace-up=['<Shift><Super>Up', '<Control><Shift><Alt>Up']
-panel-main-menu=@as []
-panel-run-dialog=['']
-switch-applications=['', '<Alt>Tab']
+minimize=@as []
+move-to-monitor-down=@as []
+move-to-monitor-left=@as []
+move-to-monitor-right=@as []
+move-to-monitor-up=@as []
+move-to-workspace-1=@as []
+move-to-workspace-last=@as []
+move-to-workspace-left=['<Shift><Super>Up', '<Control><Shift><Alt>Up']
+move-to-workspace-right=['<Shift><Super>Down', '<Control><Shift><Alt>Down']
+panel-run-dialog=@as []
+switch-applications=@as []
 switch-applications-backward=@as []
 switch-group=@as []
 switch-group-backward=@as []
 switch-input-source=@as []
-switch-input-source-backward=['']
-switch-panels=['']
+switch-input-source-backward=@as []
+switch-panels=@as []
 switch-panels-backward=@as []
-switch-to-workspace-1=['']
-switch-to-workspace-down=['<Super>Down', '<Control><Alt>Down']
-switch-to-workspace-last=['']
-switch-to-workspace-left=['']
-switch-to-workspace-right=['']
-switch-to-workspace-up=['<Super>Up', '<Control><Alt>Up']
+switch-to-workspace-1=@as []
+switch-to-workspace-last=@as []
+switch-to-workspace-left=['<Super>Up', '<Control><Alt>Up']
+switch-to-workspace-right=['<Super>Down', '<Control><Alt>Down']
 toggle-fullscreen=['<Super>f']
-toggle-maximized=['']
-unmaximize=@as []" | dconf load /
+toggle-maximized=@as []
+unmaximize=@as []
 
-echo "[org/gnome/settings-daemon/plugins/power]
-power-button-action='interactive'
-idle-dim=false
-sleep-inactive-battery-type='nothing'
-sleep-inactive-ac-type='nothing'" | dconf load /
+[org/gnome/mutter/keybindings]
+toggle-tiled-left=@as []
+toggle-tiled-right=@as []
 
-echo "[org/gnome/desktop/peripherals/mouse]
-speed=0.48" | dconf load /
+[org/gnome/mutter/wayland/keybindings]
+restore-shortcuts=@as []
+
+[org/gnome/settings-daemon/plugins/media-keys]
+help=@as []
+logout=@as []
+magnifier=@as []
+magnifier-zoom-in=@as []
+magnifier-zoom-out=@as []
+screenreader=@as []
+
+[org/gnome/shell/keybindings]
+focus-active-notification=@as []
+open-application-menu=@as []
+show-screen-recording-ui=@as []
+toggle-application-view=@as []
+toggle-message-tray=@as []
+toggle-overview=@as []" | dconf load /
 
 echo "[Desktop Entry]
 Name=Gedit
@@ -107,3 +114,5 @@ Exec=/home/c/proj/cap/google-chrome/start.sh
 Type=Application" > /home/c/.local/share/applications/google-chrome.desktop
 
 update-desktop-database
+
+echo "xhost + > /dev/null" > /home/c/.bashrc
