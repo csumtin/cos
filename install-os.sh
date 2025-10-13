@@ -46,6 +46,7 @@ echo "Pick root password"
 chroot /mnt passwd root
 
 echo "Add user c"
+chroot /mnt apt -y install --no-install-recommends adduser
 chroot /mnt adduser c
 
 chroot /mnt /usr/bin/env DISK_TO_USE=${DISK_TO_USE} /bin/bash <<"EOT"
