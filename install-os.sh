@@ -8,9 +8,10 @@ if [[ $EUID -ne 0  ]]; then
 fi
 
 DISK_TO_USE=$1
+PARTITION_TO_USE=$2
 
-yes | pvcreate ${DISK_TO_USE}1
-yes | vgcreate vg ${DISK_TO_USE}1
+yes | pvcreate ${PARTITION_TO_USE}
+yes | vgcreate vg ${PARTITION_TO_USE}
 
 if ! vgdisplay | grep -q 'vg' ; then
     echo "Error: expecting volume group vg"
@@ -24,8 +25,8 @@ echo "Pick luks password"
 cryptsetup -q luksFormat --iter-time 2000 --cipher aes-xts-plain64 --key-size 512 --hash sha512 /dev/mapper/vg-root
 cryptsetup luksOpen /dev/mapper/vg-root decrypt-root
 
-yes | mkfs.ext4 /dev/mapper/vg-boot
-yes | mkfs.ext4 /dev/mapper/decrypt-root
+yes | mkfs -t ext4 /dev/mapper/vg-boot
+yes | mkfs -t ext4 /dev/mapper/decrypt-root
 
 mount /dev/mapper/decrypt-root /mnt
 mkdir /mnt/boot
