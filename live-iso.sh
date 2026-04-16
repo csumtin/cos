@@ -7,6 +7,12 @@ if [[ $EUID -ne 0  ]]; then
   exit 1
 fi
 
+cleanup() {
+    rm -rf live-bootstrap
+    rm -rf live-image
+}
+trap cleanup EXIT
+
 # install requirements on debian host
 #apt update
 apt -y install --no-install-recommends grub2 squashfs-tools xorriso debootstrap
@@ -34,6 +40,8 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-imag
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fdisk e2fsprogs grub2 lvm2 cryptsetup debootstrap vim network-manager firmware-iwlwifi wpasupplicant ca-certificates git
 apt clean
 
+passwd -d root
+
 # random mac
 echo "[Match]
 
@@ -42,8 +50,8 @@ MACAddressPolicy=random" > /etc/systemd/network/00-default.link
 EOT
 # exit bootstrap
 
-# set root password
-chroot live-bootstrap passwd root
+cp README.md live-bootstrap/home/root
+cp install-os.sh live-bootstrap/home/root
 
 # create squashed file system
 mkdir -p live-image/live

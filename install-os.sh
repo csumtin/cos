@@ -67,12 +67,6 @@ DEBIAN_FRONTEND=noninteractive apt -y upgrade
 # install kernel, systemd, grub, lvm and luks
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 busybox systemd-sysv grub2 os-prober lvm2 cryptsetup cryptsetup-initramfs
 
-# command line text editing
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends vim
-
-# git
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git
-
 # run software in containers using deboostrap and systemd containers
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstrap systemd-container sudo
 
@@ -81,9 +75,6 @@ echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 
 # networking and wifi
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends ifupdown network-manager firmware-iwlwifi wpasupplicant ca-certificates nftables
-
-# bluetooth
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends bluetooth
 
 # random mac
 echo "[MATCH]
@@ -94,8 +85,8 @@ MACAddressPolicy=random" > /etc/systemd/network/00-default.link
 echo "127.0.0.1 localhost
 ::1 localhost" > /etc/hosts
 
-# minimal gnome desktop environment
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal
+# minimal host gui
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends weston
 
 apt clean
 
@@ -139,25 +130,6 @@ table inet filter {
 }' > /etc/nftables.conf
 
 systemctl enable nftables
-
-# sound
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends pulseaudio
-
-# bluetooth
-# DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-bluetooth pulseaudio-module-bluetooth
-
-# for cas
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends steghide gnupg pwgen xclip
-
-su - c
-
-mkdir /home/c/download
-mkdir /home/c/proj
-
-cd proj
-git clone https://github.com/csumtin/cap.git
-git clone https://github.com/csumtin/cos.git
-
 EOT
 
 echo "Base OS installed, you should reboot"
