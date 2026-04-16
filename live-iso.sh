@@ -23,7 +23,7 @@ mkdir live-bootstrap
 debootstrap --arch=amd64 --variant=minbase stable live-bootstrap
 
 # enter bootstrap
-chroot live-bootstrap <<"EOT"
+chroot live-bootstrap /bin/bash <<"EOT"
 
 # add non-free
 echo "deb http://deb.debian.org/debian/ stable main non-free non-free-firmware
@@ -50,8 +50,8 @@ MACAddressPolicy=random" > /etc/systemd/network/00-default.link
 EOT
 # exit bootstrap
 
-cp README.md live-bootstrap/home/root
-cp install-os.sh live-bootstrap/home/root
+cp README.md live-bootstrap/root
+cp install-os.sh live-bootstrap/root
 
 # create squashed file system
 mkdir -p live-image/live

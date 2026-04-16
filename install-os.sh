@@ -77,9 +77,9 @@ echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends ifupdown network-manager firmware-iwlwifi wpasupplicant ca-certificates nftables
 
 # random mac
-echo "[MATCH]
+echo "[Match]
 
-[LINK]
+[Link]
 MACAddressPolicy=random" > /etc/systemd/network/00-default.link
 
 echo "127.0.0.1 localhost
