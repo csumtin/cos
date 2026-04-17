@@ -37,7 +37,7 @@ DEBIAN_FRONTEND=noninteractive apt -y upgrade
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 systemd-sysv live-boot
 
 # optional installs
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fdisk e2fsprogs grub2 lvm2 cryptsetup debootstrap vim network-manager firmware-iwlwifi wpasupplicant ca-certificates git
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fdisk e2fsprogs grub2 lvm2 cryptsetup debootstrap vim network-manager firmware-iwlwifi wpasupplicant ca-certificates
 apt clean
 
 passwd -d root
