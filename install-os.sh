@@ -25,16 +25,15 @@ echo "Pick luks password"
 cryptsetup -q luksFormat --iter-time 2000 --cipher aes-xts-plain64 --key-size 512 --hash sha512 /dev/mapper/vg-root
 cryptsetup luksOpen /dev/mapper/vg-root decrypt-root
 
-yes | mkfs -t ext4 /dev/mapper/vg-boot
-yes | mkfs -t ext4 /dev/mapper/decrypt-root
+mkfs -t ext4 /dev/mapper/vg-boot
+mkfs -t ext4 /dev/mapper/decrypt-root
 
 mount /dev/mapper/decrypt-root /mnt
 mkdir /mnt/boot
 mount /dev/mapper/vg-boot /mnt/boot
 
 mkdir bootstrap
-debootstrap --arch=amd64 --variant=minbase stable bootstrap
-cp -Rp bootstrap/* /mnt
+debootstrap --arch=amd64 --variant=minbase stable /mnt
 
 mount --bind /dev /mnt/dev
 mount --bind /proc /mnt/proc
@@ -51,10 +50,10 @@ chroot /mnt apt -y install --no-install-recommends adduser
 chroot /mnt adduser c
 
 chroot /mnt /usr/bin/env DISK_TO_USE=${DISK_TO_USE} /bin/bash <<"EOT"
-echo "decrypt-root /dev/mapper/vg-root  none  luks" > /etc/crypttab
+echo "decrypt-root /dev/mapper/vg-root  none  luks,discard" > /etc/crypttab
 
-echo "/dev/mapper/vg-boot  /boot  ext4  defaults  0 2
-/dev/mapper/decrypt-root  /  ext4  errors=remount-ro  0 1" > /etc/fstab
+echo "/dev/mapper/vg-boot  /boot  ext4  defaults,noatime  0 2
+/dev/mapper/decrypt-root  /  ext4  defaults,noatime,errors=remount-ro  0 1" > /etc/fstab
 
 # add non-free
 echo "deb http://deb.debian.org/debian/ stable main non-free non-free-firmware
@@ -67,6 +66,12 @@ DEBIAN_FRONTEND=noninteractive apt -y upgrade
 # install kernel, systemd, grub, lvm and luks
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 busybox systemd-sysv grub2 os-prober lvm2 cryptsetup cryptsetup-initramfs
 
+# command line text editing
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends vim
+
+# git
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git
+
 # run software in containers using deboostrap and systemd containers
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstrap systemd-container sudo
 
@@ -74,26 +79,31 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends debootstra
 echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 
 # networking and wifi
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends ifupdown network-manager firmware-iwlwifi wpasupplicant ca-certificates nftables
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends network-manager firmware-iwlwifi wpasupplicant ca-certificates nftables
 
 # random mac
-echo "[Match]
+echo "[MATCH]
 
-[Link]
+[LINK]
 MACAddressPolicy=random" > /etc/systemd/network/00-default.link
 
 echo "127.0.0.1 localhost
 ::1 localhost" > /etc/hosts
 
-# minimal host gui
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends weston
+# bluetooth
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends bluetooth
+
+# minimal gnome desktop environment
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal gnome-bluetooth
 
 apt clean
 
 # grub
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
 sed -i 's/#GRUB_TERMINAL=console/GRUB_TERMINAL=console/' /etc/default/grub
+echo 'GRUB_ENABLE_CRYPTODISK=y' >> /etc/default/grub
 
+update-initramfs -u -k all
 update-grub
 grub-install ${DISK_TO_USE}
 
@@ -130,6 +140,7 @@ table inet filter {
 }' > /etc/nftables.conf
 
 systemctl enable nftables
+
 EOT
 
 echo "Base OS installed, you should reboot"

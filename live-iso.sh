@@ -33,8 +33,8 @@ deb http://deb.debian.org/debian/ stable-updates main non-free non-free-firmware
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y upgrade
 
-# install kernel, systemd, basic networking tools and live-boot(so we can boot from this live image)
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 systemd-sysv live-boot ifupdown
+# install kernel, systemd and live-boot(so we can boot from this live image)
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 systemd-sysv live-boot
 
 # optional installs
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends fdisk e2fsprogs grub2 lvm2 cryptsetup debootstrap vim network-manager firmware-iwlwifi wpasupplicant ca-certificates git
