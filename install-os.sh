@@ -25,8 +25,8 @@ echo "Pick luks password"
 cryptsetup -q luksFormat --iter-time 2000 --cipher aes-xts-plain64 --key-size 512 --hash sha512 /dev/mapper/vg-root
 cryptsetup luksOpen /dev/mapper/vg-root decrypt-root
 
-mkfs -t ext4 /dev/mapper/vg-boot
-mkfs -t ext4 /dev/mapper/decrypt-root
+yes | mkfs -t ext4 /dev/mapper/vg-boot
+yes | mkfs -t ext4 /dev/mapper/decrypt-root
 
 mount /dev/mapper/decrypt-root /mnt
 mkdir /mnt/boot
@@ -82,9 +82,9 @@ echo "c	ALL=NOPASSWD:/usr/bin/systemd-nspawn" >> /etc/sudoers
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends network-manager firmware-iwlwifi wpasupplicant ca-certificates nftables
 
 # random mac
-echo "[MATCH]
+echo "[Match]
 
-[LINK]
+[Link]
 MACAddressPolicy=random" > /etc/systemd/network/00-default.link
 
 echo "127.0.0.1 localhost
@@ -105,7 +105,7 @@ echo 'GRUB_ENABLE_CRYPTODISK=y' >> /etc/default/grub
 
 update-initramfs -u -k all
 update-grub
-grub-install ${DISK_TO_USE}
+grub-install --target=i386-pc ${DISK_TO_USE}
 
 echo '#!/usr/sbin/nft -f
 flush ruleset
