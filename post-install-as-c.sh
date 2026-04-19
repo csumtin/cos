@@ -6,12 +6,7 @@ if [[ $EUID -eq 0  ]]; then
   exit 1
 fi
 
-# disable everything first
-keys=$(dconf list /org/gnome/terminal/legacy/keybindings/)
-for key in $keys; do
-    dconf write "/org/gnome/terminal/legacy/keybindings/$key" "''"
-done
-
+# disable everything in UI first, no easy way to script!
 echo "[org/gnome/terminal/legacy/keybindings]
 close-tab='<Primary>w'
 copy='<Primary>c'
@@ -22,11 +17,6 @@ next-tab='<Primary>Tab'
 paste='<Primary>v'
 prev-tab='<Primary><Shift>Tab'
 select-all='<Primary>a'" | dconf load /
-
-keys=$(dconf list /org/gnome/desktop/wm/keybindings/)
-for key in $keys; do
-    dconf write "/org/gnome/desktop/wm/keybindings/$key" "''"
-done
 
 echo "[org/gnome/desktop/wm/keybindings]
 close=['<Primary>q']
@@ -47,5 +37,3 @@ Exec=/home/c/proj/cap/firefox/start.sh
 Type=Application" > /home/c/.local/share/applications/firefox.desktop
 
 update-desktop-database
-
-echo "xhost + > /dev/null" > /home/c/.bashrc

@@ -91,10 +91,10 @@ echo "127.0.0.1 localhost
 ::1 localhost" > /etc/hosts
 
 # bluetooth
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends bluetooth
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends bluez
 
 # minimal gnome desktop environment
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal gnome-bluetooth
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends gnome-session gdm3 gnome-control-center libgl1-mesa-dri x11-xserver-utils gnome-terminal
 
 apt clean
 
@@ -140,6 +140,14 @@ table inet filter {
 }' > /etc/nftables.conf
 
 systemctl enable nftables
+
+su - c
+
+rmdir Desktop/ Documents/ Downloads/ Music/ Pictures/ Public/ Templates/ Videos/
+mkdir proj download
+
+cd proj
+git clone https://github.com/csumtin/cap.git
 
 EOT
 
