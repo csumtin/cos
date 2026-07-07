@@ -37,3 +37,5 @@ Exec=/home/c/proj/cap/firefox/start.sh
 Type=Application" > /home/c/.local/share/applications/firefox.desktop
 
 update-desktop-database
+
+rmdir /home/c/Desktop/ /home/c/Documents/ /home/c/Downloads/ /home/c/Music/ /home/c/Pictures/ /home/c/Public/ /home/c/Templates/ /home/c/Videos/

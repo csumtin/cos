@@ -67,7 +67,7 @@ DEBIAN_FRONTEND=noninteractive apt -y upgrade
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends linux-image-amd64 busybox systemd-sysv grub2 os-prober lvm2 cryptsetup cryptsetup-initramfs
 
 # command line text editing
-DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends vim
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends nano
 
 # git
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends git
@@ -111,39 +111,38 @@ echo '#!/usr/sbin/nft -f
 flush ruleset
 
 table inet filter {
-        chain input {
-                # drop by default
-                type filter hook input priority 0; policy drop;
-                # accept localhost
-                iif lo accept
-                # drop connections to localhost not coming from localhost
-                iif != lo ip daddr 127.0.0.1/8 drop
-                # drop connections to localhost not coming from localhost
-                iif != lo ip6 daddr ::1/128 drop
-                # only accept traffic originating from us
-                ct state {established, related} accept
-        }
-        chain forward {
-                # drop by default
-                type filter hook forward priority 0; policy drop;
-        }
-        chain output {
-                # drop by default
-                type filter hook output priority 0; policy drop;
-                # accept localhost
-                oif lo accept
-                # allow outbound http, https and ssh
-                tcp dport {80, 443, 22} ct state new,established,related accept
-                # allow outbound dns
-                udp dport 53 ct state new,established,related accept
-        }
+  chain input {
+    # drop by default
+    type filter hook input priority 0; policy drop;
+    # accept localhost
+    iif lo accept
+    # drop connections to localhost not coming from localhost
+    iif != lo ip daddr 127.0.0.1/8 drop
+    # drop connections to localhost not coming from localhost
+    iif != lo ip6 daddr ::1/128 drop
+    # only accept traffic originating from us
+    ct state {established, related} accept
+  }
+  chain forward {
+    # drop by default
+    type filter hook forward priority 0; policy drop;
+  }
+  chain output {
+    # drop by default
+    type filter hook output priority 0; policy drop;
+    # accept localhost
+    oif lo accept
+    # allow outbound http, https and ssh
+    tcp dport {80, 443, 22} ct state new,established,related accept
+    # allow outbound dns
+    udp dport 53 ct state new,established,related accept
+  }
 }' > /etc/nftables.conf
 
 systemctl enable nftables
 
 su - c
 
-rmdir Desktop/ Documents/ Downloads/ Music/ Pictures/ Public/ Templates/ Videos/
 mkdir proj download
 
 cd proj
