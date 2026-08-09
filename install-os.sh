@@ -71,14 +71,16 @@ esac
 
 umask 077
 KEY=/run/key
-trap 'rm -f "$KEY"' EXIT
+trap '\''rm "$KEY"'\'' EXIT
 
-/lib/cryptsetup/askpass "Password: " > "$KEY"
+while true; do
+  /lib/cryptsetup/askpass "Password: " > "$KEY"
 
-if /sbin/cryptsetup open --key-file="$KEY" /dev/mapper/vg-root decrypt-root 2>/dev/null || /sbin/cryptsetup open --key-file="$KEY" /dev/mapper/vg-backup decrypt-root 2>/dev/null
-then
-  exit 0
-fi
+  if /sbin/cryptsetup open --key-file="$KEY" /dev/mapper/vg-root decrypt-root 2>/dev/null || /sbin/cryptsetup open --key-file="$KEY" /dev/mapper/vg-backup decrypt-root 2>/dev/null
+  then
+    exit 0
+  fi
+done
 ' > /etc/initramfs-tools/scripts/local-top/boty
 chmod 755 /etc/initramfs-tools/scripts/local-top/boty
 
@@ -87,6 +89,9 @@ DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends nano
 
 # networking and wifi
 DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends network-manager firmware-iwlwifi wpasupplicant ca-certificates nftables
+
+# bluetooth
+DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends bluez
 
 echo "127.0.0.1 localhost
 ::1 localhost" > /etc/hosts
