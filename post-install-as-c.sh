@@ -28,12 +28,12 @@ toggle-fullscreen=['<Super>f']" | dconf load /
 
 echo "[Desktop Entry]
 Name=Gedit
-Exec=/home/c/proj/cap/gedit/start.sh
+Exec=/home/c/cap/gedit/start.sh
 Type=Application" > /home/c/.local/share/applications/gedit.desktop
 
 echo "[Desktop Entry]
 Name=Firefox
-Exec=/home/c/proj/cap/firefox/start.sh
+Exec=/home/c/cap/firefox/start.sh
 Type=Application" > /home/c/.local/share/applications/firefox.desktop
 
 update-desktop-database
